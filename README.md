@@ -26,7 +26,7 @@ which you then personalise before posting.
 No installation needed. Clone the repo and run it with Python 3:
 
 ```bash
-git clone https://github.com/smmahsan/captioncraft.git
+git clone https://github.com/smm-ahsan/captioncraft.git
 cd captioncraft
 python3 captioncraft.py --help
 ```
