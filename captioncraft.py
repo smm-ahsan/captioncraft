@@ -31,24 +31,34 @@ HASHTAG_BANK = {
                 "#EntrepreneurLife", "#BusinessOwner", "#CommunityFirst", "#MadeWithLove"],
 }
 
-HOOKS = [
+FOOD_NICHES = {"cafe", "restaurant", "bakery"}
+
+HOOKS_COMMON = [
     "Stop scrolling. {topic} just landed.",
     "You asked, we delivered: {topic}.",
     "POV: you finally tried {topic}.",
     "Three words: {topic}. That is the post.",
-    "Warning: {topic} may cause serious cravings.",
     "Nobody talks about {topic} enough. Time to fix that.",
     "This is your sign to check out {topic}.",
     "Behind the scenes of {topic}. This one is special.",
 ]
 
-BODIES = [
-    "Made fresh, made with care, made for you. Come and see what the fuss is about.",
-    "Small batch, big flavour, zero shortcuts. That is how we do things here.",
+HOOKS_FOOD = [
+    "Warning: {topic} may cause serious cravings.",
+    "Fresh out of the kitchen: {topic}.",
+]
+
+BODIES_COMMON = [
     "Tag someone who needs this in their life today.",
     "Available now - and when it is gone, it is gone.",
     "Quality you can feel from the first minute. Come as you are, leave happier.",
     "We put the work in so all you have to do is enjoy it.",
+    "Small team, big care, zero shortcuts. That is how we do things here.",
+]
+
+BODIES_FOOD = [
+    "Made fresh, made with care, made for you. Come and see what the fuss is about.",
+    "Small batch, big flavour, zero shortcuts. That is how we do things here.",
 ]
 
 CALLS_TO_ACTION = {
@@ -67,8 +77,13 @@ PLATFORM_HASHTAG_LIMIT = {
 
 
 def build_caption(topic, niche, platform, rng):
-    hook = rng.choice(HOOKS).format(topic=topic)
-    body = rng.choice(BODIES)
+    hooks = list(HOOKS_COMMON)
+    bodies = list(BODIES_COMMON)
+    if niche in FOOD_NICHES:
+        hooks += HOOKS_FOOD
+        bodies += BODIES_FOOD
+    hook = rng.choice(hooks).format(topic=topic)
+    body = rng.choice(bodies)
     cta = CALLS_TO_ACTION[platform]
     tags = list(HASHTAG_BANK[niche]) + list(HASHTAG_BANK["general"])
     rng.shuffle(tags)
